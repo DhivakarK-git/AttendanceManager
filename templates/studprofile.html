@@ -1,0 +1,181 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>SMART ATTENDANCE MANAGER</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+<link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+
+   h5{
+     font-size: 15px;
+   }
+      }
+	.demo select {
+		border: 0 !important;  /*Removes border*/
+		-webkit-appearance: none;  /*Removes default chrome and safari style*/
+		-moz-appearance: none; /* Removes Default Firefox style*/
+        appearance:none;
+		background: #3fcc9d url(img/select-arrow.png) no-repeat 90% center;
+		width: 100px; /*Width of select dropdown to give space for arrow image*/
+		text-indent: 0.01px; /* Removes default arrow from firefox*/
+		text-overflow: "";  /*Removes default arrow from firefox*/ /*My custom style for fonts*/
+		color: #FFF;
+		padding: 5px;
+	}
+  .datepicker
+  {
+    z-index: 1600 !important; /* has to be larger than 1050 */
+  }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow" style="background-color: #3aaf9f;">
+  <a class="navbar-brand" href="#">
+    <img src="{% static 'img/logow.png' %}" width="25" height="25" class="d-inline-block align-top" alt="">
+    SA
+  </a>
+  <nav class="navbar navbar-dark p-1">
+  <span class="navbar-text">
+    STUDENT ACCOUNT
+  </span>
+</nav>
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" href={% url 'logout'  %}>Log Out <span data-feather="log-out"></a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+		  <a class="nav-link" href={% url 'studindex'  %}>
+              <span data-feather="home"></span>
+              Home <span class="sr-only">(current)</span>
+            </a>
+          </li>
+		  <li class="nav-item">
+		  <a class="nav-link active" href="{% url 'studprofile'  %}">
+              <span data-feather="user"></span>
+              Profile <span class="sr-only"></span>
+            </a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="{% url 'studadd'  %}">
+                  <span data-feather="calendar"></span>
+                  Attendance <span class="sr-only"></span>
+                </a>
+              </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+     <div class="container" style="margin-top:30px">
+       <div class="card">
+         <div class="card-header">
+            <div class="row">
+              <div class="col-md-5"><h4>PROFILE</h4></div>
+              <div class="col-md-2" align="right">
+               </div>
+             </div>
+           </div>
+          <div class="card-body">
+            <form action ='' method="POST">
+              {% csrf_token %}
+           <div class="form-group">
+               <div class="row">
+                 <label class="col-md-4 text-right">Student Name <span class="text-danger">*</span></label>
+                 <div class="col-md-4">
+                   <input type="text" name="fn" class="form-control" placeholder={{stu.f_name}} />
+                 </div>
+               </div>
+             </div>
+              <div class="form-group">
+                  <div class="row">
+                    <label class="col-md-4 text-right"></label>
+                    <div class="col-md-4">
+                      <input type="text" name="ln" class="form-control" placeholder={{stu.l_name}} />
+                    </div>
+                  </div>
+                </div>
+             <div class="form-group">
+               <div class="row">
+                 <label class="col-md-4 text-right">Student Id<span class="text-danger"></span></label>
+                 <div class="col-md-4">
+                   <input type="text" class="form-control" placeholder={{stu.stud_id}} />
+                 </div>
+               </div>
+             </div>
+             <div class="form-group">
+               <div class="row">
+                 <label class="col-md-4 text-right">Password <span class="text-danger">*</span></label>
+                 <div class="col-md-4">
+                   <input type="password" name="pass" id="teacher_password" class="form-control" placeholder="Leave blank to not change it" />
+                 </div>
+               </div>
+             </div>
+             <div class="form-group">
+                 <div class="row">
+                   <label class="col-md-4 text-right">In/Out<span class="text-danger"></span></label>
+                   <div class="col-md-4">
+                     <input type="text" class="form-control" placeholder={{stu.in_out}} />
+                   </div>
+                 </div>
+               </div>
+             <div class="form-group">
+              <div class="row">
+                <label class="col-md-4 text-right">Class-Id<span class="text-danger"></span></label>
+                <div class="col-md-4">
+                  <input type="text" class="form-control" placeholder={{stu.class_id.class_id}} />
+                </div>
+              </div>
+            </div>
+             <div class="form-group">
+               <div class="row">
+                 <label class="col-md-4 text-right">Department <span class="text-danger"></span></label>
+                 <div class="col-md-4">
+                   <input type="text" class="form-control" placeholder={{stu.dept_id.dept_id}} />
+                 </div>
+               </div>
+             </div>
+             <input type="submit" name="button_action" id="button_action" class="btn btn-success btn-sm" value="Save" />
+           </form>
+          </div>
+       </div>
+     </div>
+    </main>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+	  <script src="{% static 'assets/dist/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+        <script src="{% static 'js/dashboard.js' %}"></script></body>
+</html>

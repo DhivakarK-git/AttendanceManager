@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container" id="container">
+	<div class="watermarked" id="cf2">
+		<img src="{% static 'img/logog.png'%}" id="ER" style="width: 35px;height: 35px;" />
+		<img src="{% static 'img/logow.png'%}" id="ERL" style="width: 35px;height: 35px;opacity:0;"/>
+	</div>
+	<div class="form-container sign-up-container">
+    <form action={% url 'faclogin' %} method="POST">
+        <h1>FACULTY ACCOUNT</h1>
+        {% csrf_token %}
+        <input type="text" name="email" id="email" class="form__input" placeholder="Faculty Id" required autofocus>
+        <input class="form__input" type="password" name="password" placeholder="Password" required>
+		  <a href="#">Forgot your password?</a>
+          <button>SIGN IN</button>
+    </form>
+	</div>
+
+	<div class="form-container sign-in-container">
+    <form action="{% url 'studlogin' %}" method="POST">
+        <h1>STUDENT ACCOUNT</h1>
+        {% csrf_token %}
+      <input type="text" name="email" id="email" class="form__input" placeholder="Student Id" required autofocus>
+      <input class="form__input" type="password" name="password" placeholder="Password" minlength="8" required>
+		  <a href="#">Forgot your password?</a>
+          <button>SIGN IN</button>
+    </form>
+	</div>
+
+	<div class="overlay-container" id="oVER">
+    <div class="overlay">
+        <div class="overlay-panel overlay-left">
+            <h1>Welcome Back!</h1>
+            <p>
+                Focus on work that matters
+            </p>
+            <button class="ghost" id="signIn">Student</button>
+            <button class="host" id="next">Admin</button>
+            <br>
+            <br>
+            <br>
+            <p>
+              {% if messages %}
+          {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message|safe }}
+              </div>
+          {% endfor %}
+          {% endif %}
+            </p>
+        </div>
+        <div class="overlay-panel overlay-right">
+			<h1>Welcome Back!</h1>
+            <p>
+                Focus on work that matters
+            </p>
+            <button class="ghost" id="signUp">Not a Student?</button>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <p>
+              {% if messages %}
+          {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message|safe }}
+              </div>
+          {% endfor %}
+          {% endif %}
+            </p>
+        </div>
+    </div>
+	</div>
+    </div>
+  </body>
+</html>
+  <script  src="{% static 'js/script.js'%}"></script>
+
+
+</body>
+</html>

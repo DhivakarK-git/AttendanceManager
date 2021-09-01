@@ -1,0 +1,146 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>SMART ATTENDANCE MANAGER</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+<link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+	.demo select {
+		border: 0 !important;  /*Removes border*/
+		-webkit-appearance: none;  /*Removes default chrome and safari style*/
+		-moz-appearance: none; /* Removes Default Firefox style*/
+        appearance:none;
+		background: #3fcc9d url(img/select-arrow.png) no-repeat 90% center;
+		width: 100px; /*Width of select dropdown to give space for arrow image*/
+		text-indent: 0.01px; /* Removes default arrow from firefox*/
+		text-overflow: "";  /*Removes default arrow from firefox*/ /*My custom style for fonts*/
+		color: #FFF;
+		padding: 5px;
+	}
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow" style="background-color: #3aaf9f;">
+  <a class="navbar-brand" href="#">
+    <img src="{% static 'img/logow.png' %}" width="25" height="25" class="d-inline-block align-top" alt="">
+    SA
+  </a>
+  <nav class="navbar navbar-dark p-1">
+  <span class="navbar-text">
+    STUDENT ACCOUNT
+  </span>
+</nav>
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" href={% url 'logout'  %}>Log Out <span data-feather="log-out"></a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+		  <a class="nav-link active" href={% url 'studindex'  %}>
+              <span data-feather="home"></span>
+              Home <span class="sr-only">(current)</span>
+            </a>
+          </li>
+		  <li class="nav-item">
+		  <a class="nav-link" href="{% url 'studprofile'  %}">
+              <span data-feather="user"></span>
+              Profile <span class="sr-only"></span>
+            </a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="{% url 'studadd'  %}">
+                  <span data-feather="calendar"></span>
+                  Attendance <span class="sr-only"></span>
+                </a>
+              </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h3>Notifications</h3>
+          <div class="btn-group mr-2 mb-md-0">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+      </div>
+{% if cou %}
+	  <div class="container" style="margin-top:30px">
+  <div class="card">
+   <div class="card-header">
+      <div class="row">
+        <div class="col-md-9"><h4>Low Attendance</h4></div>
+      </div>
+    </div>
+   <div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered" id="student_table">
+          <thead>
+            <tr>
+              <th>Course Id</th>
+              <th>Course Name</th>
+              <th>Classes Attended</th>
+              <th>Number Of Classes</th>
+              <th>Attendance %</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in cou %}
+            <tr>
+              <td>{{i.0}}</td>
+              <td>{{i.4}}</td>
+              <td>{{i.1}}</td>
+              <td>{{i.2}}</td>
+              <td>{{i.3}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+   </div>
+  </div>
+</div>
+  {% endif %}
+    </main>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+	  <script src="{% static 'assets/dist/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+        <script src="{% static 'js/dashboard.js' %}"></script></body>
+</html>
