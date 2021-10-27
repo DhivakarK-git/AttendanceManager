@@ -3,6 +3,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 DAYS_CHOICE=[('mon','Monday'),('tue','Tuesday'),('wed','Wednesday'),('thu','Thursday'),('fri','Friday'),('sat','Saturday'),]
+LEAVE_CHOICE=[('ml','Medical Leave'),('od','On Duty')]
 
 class Department(models.Model):
     dept_id = models.CharField(max_length=20,primary_key = True)
@@ -51,8 +52,33 @@ class Attendance(models.Model):
     date = models.DateField()
     presence = models.IntegerField(validators=[MinValueValidator(0),
                                        MaxValueValidator(1)])
+    periods = models.IntegerField(validators=[MinValueValidator(1),
+                                       MaxValueValidator(8)])
     class Meta:
         unique_together = (("stud_id", "course_id","date"),)
+
+class Slot(models.Model):
+    period_id=models.IntegerField(validators=[MinValueValidator(1),
+                                       MaxValueValidator(8)],primary_key=True)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+
+class Holiday(models.Model):
+    date = models.DateField(primary_key=True)
+    description = models.CharField(max_length=100)
+
+class Advisor(models.Model):
+    fac_id = models.ForeignKey(Faculty, on_delete=models.CASCADE)
+    class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
+
+class Leave(models.Model):
+    stud_id = models.ForeignKey(Student, on_delete=models.CASCADE)
+    reason = models.CharField(max_length=100)
+    leave_type = models.CharField(max_length=9,choices=LEAVE_CHOICE,default=None,blank=False)
+    approved = models.IntegerField(validators=[MinValueValidator(0),
+                                       MaxValueValidator(1)])
+
+
 
 class Timetable(models.Model):
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
