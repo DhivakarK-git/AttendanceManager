@@ -84,8 +84,7 @@ class Timetable(models.Model):
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
     day = models.CharField(max_length=9,choices=DAYS_CHOICE,default=None,blank=False)
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
-    periods = models.IntegerField(validators=[MinValueValidator(1),
-                                       MaxValueValidator(8)])
+    periods_id = models.ForeignKey(Slot, on_delete=models.CASCADE)
     class Meta:
         unique_together = (("class_id", "course_id","day","periods"),)
 
